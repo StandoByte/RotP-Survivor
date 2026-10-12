@@ -75,7 +75,7 @@ public class MobAggroHandler {
 
     private static boolean isSurvivorUser(PlayerEntity player) {
         return IStandPower.getStandPowerOptional(player).resolve()
-                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
+                .map(power -> power.hasPower() && power.getType().getRegistryName().getPath().equals("survivor"))
                 .orElse(false);
     }
 }

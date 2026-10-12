@@ -31,14 +31,14 @@ public class PlayerAttackHandler {
         if (!AngerHelper.isAngry(player)) return;
 
         boolean isSurvivorUser = IStandPower.getStandPowerOptional(player).resolve()
-                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
+                .map(power -> power.hasPower() && power.getType().getRegistryName().getPath().equals("survivor"))
                 .orElse(false);
         if (isSurvivorUser) return;
 
         boolean nearSurvivor = player.level.getEntitiesOfClass(PlayerEntity.class,
                         player.getBoundingBox().inflate(SURVIVOR_RANGE),
                         p -> IStandPower.getStandPowerOptional(p).resolve()
-                                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
+                                .map(power -> power.hasPower() && power.getType().getRegistryName().getPath().equals("survivor"))
                                 .orElse(false))
                 .size() > 0;
 
